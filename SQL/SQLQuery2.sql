@@ -12,3 +12,13 @@ UserPassword varchar(200),
 IsActive bit default 1,
 RegistrationDate datetime default getdate()
 )
+
+create table RefreshTokenHistory(
+TokenHistoryId int primary key identity,
+UserId int references UserInformation(UserId),
+Token varchar(500),
+RefreshToken varchar(200),
+CreationDate datetime,
+ExpirationDate datetime,
+IsActive AS (iif(ExpirationDate < getdate(), convert(bit,0), convert(bit,1)))
+)
