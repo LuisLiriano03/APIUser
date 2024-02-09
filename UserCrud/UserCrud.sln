@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.API", "User.API\User.API.csproj", "{57B0C0FB-22BD-4CF9-805A-D4785C5E8B0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.API", "User.API\User.API.csproj", "{57B0C0FB-22BD-4CF9-805A-D4785C5E8B0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.BLL", "User.BLL\User.BLL.csproj", "{A1C62DBE-741C-43AD-BC9A-8C73826AF76A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.BLL", "User.BLL\User.BLL.csproj", "{A1C62DBE-741C-43AD-BC9A-8C73826AF76A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.DAL", "User.DAL\User.DAL.csproj", "{DD8776FF-DE5C-4F46-8D5B-599041E24967}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.DAL", "User.DAL\User.DAL.csproj", "{DD8776FF-DE5C-4F46-8D5B-599041E24967}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.DTOs", "User.DTOs\User.DTOs.csproj", "{D77949F1-DA85-46A6-A9C6-5660160F79D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.DTOs", "User.DTOs\User.DTOs.csproj", "{D77949F1-DA85-46A6-A9C6-5660160F79D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.IOC", "User.IOC\User.IOC.csproj", "{A91FCF47-4948-49FB-BB85-C53D57E7F9B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.IOC", "User.IOC\User.IOC.csproj", "{A91FCF47-4948-49FB-BB85-C53D57E7F9B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Model", "User.Model\User.Model.csproj", "{17186D43-115E-486B-89F1-7BD77EEC70EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Model", "User.Model\User.Model.csproj", "{17186D43-115E-486B-89F1-7BD77EEC70EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Utility", "User.Utility\User.Utility.csproj", "{20006778-1BB6-4B34-97F7-D917A9473871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Utility", "User.Utility\User.Utility.csproj", "{20006778-1BB6-4B34-97F7-D917A9473871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserFunctionality.Tests", "UserFunctionality.Tests\UserFunctionality.Tests.csproj", "{D96A934F-02F7-4E24-A950-C1938737A650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{20006778-1BB6-4B34-97F7-D917A9473871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20006778-1BB6-4B34-97F7-D917A9473871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20006778-1BB6-4B34-97F7-D917A9473871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96A934F-02F7-4E24-A950-C1938737A650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96A934F-02F7-4E24-A950-C1938737A650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96A934F-02F7-4E24-A950-C1938737A650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96A934F-02F7-4E24-A950-C1938737A650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
