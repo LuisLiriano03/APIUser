@@ -10,5 +10,7 @@ namespace User.BLL.Services.Contracts
     public interface IAutorizacionService
     {
         Task<TokenAuthorizationResponseDTO> ReturnToken(TokenAuthorizationRequestDTO tokenAuthorization);
+        Task<TokenAuthorizationResponseDTO> ReturnRefreshToken(RefreshTokenRequestDTO refreshToken, int UserId);
+
     }
 }

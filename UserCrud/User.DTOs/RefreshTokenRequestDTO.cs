@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace User.DTOs
 {
-    public class TokenAuthorizationResponseDTO
+    public class RefreshTokenRequestDTO
     {
-        public string Token { get; set; }
+        public string ExpirationToken { get; set; }
         public string RefreshToken { get; set; }
-        public bool Resul { get; set; }
-        public string Message { get; set; }
+
 
     }
 }

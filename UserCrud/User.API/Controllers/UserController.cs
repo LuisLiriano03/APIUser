@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
+using System.IdentityModel.Tokens.Jwt;
 using User.API.Utility;
 using User.BLL.Services.Contracts;
 using User.DTOs;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace User.API.Controllers
 {
@@ -31,6 +34,35 @@ namespace User.API.Controllers
             }
 
             return Ok(AuthorizedResult);
+        }
+
+        [HttpPost]
+        [Route("GetRefreshToken")]
+        public async Task<IActionResult> GetRefreshToken([FromBody] RefreshTokenRequestDTO requestDTO)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var TokenSupposedlyExpired = tokenHandler.ReadJwtToken(requestDTO.ExpirationToken);
+
+            if(TokenSupposedlyExpired.ValidTo > DateTime.UtcNow)
+            {
+                return BadRequest(new TokenAuthorizationResponseDTO
+                {
+                    Resul = false,
+                    Message = "Refreshtoken does not expired"
+                });
+
+            }
+
+            string userId = TokenSupposedlyExpired.Claims.First( x=>
+                x.Type == JwtRegisteredClaimNames.NameId).Value.ToString();
+
+            var AuthorizationResponse = await _autorizacionService.ReturnRefreshToken(requestDTO, int.Parse(userId));
+
+            if (AuthorizationResponse.Resul)
+                return Ok(AuthorizationResponse);
+            else
+                return BadRequest(AuthorizationResponse);
+
         }
 
         [Authorize]

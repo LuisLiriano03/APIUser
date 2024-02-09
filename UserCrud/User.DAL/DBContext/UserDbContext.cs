@@ -15,11 +15,35 @@ public partial class UserDbContext : DbContext
     {
     }
 
+    public virtual DbSet<RefreshTokenHistory> RefreshTokenHistories { get; set; }
+
     public virtual DbSet<UserInformation> UserInformations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<RefreshTokenHistory>(entity =>
+        {
+            entity.HasKey(e => e.TokenHistoryId).HasName("PK__RefreshT__C49909970C376784");
+
+            entity.ToTable("RefreshTokenHistory");
+
+            entity.Property(e => e.CreationDate).HasColumnType("datetime");
+            entity.Property(e => e.ExpirationDate).HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasComputedColumnSql("(case when [ExpirationDate]<getdate() then CONVERT([bit],(0)) else CONVERT([bit],(1)) end)", false);
+            entity.Property(e => e.RefreshToken)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.Token)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.User).WithMany(p => p.RefreshTokenHistories)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__RefreshTo__UserI__4AB81AF0");
+        });
+
         modelBuilder.Entity<UserInformation>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__UserInfo__1788CC4C650F482A");

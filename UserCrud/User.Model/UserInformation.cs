@@ -20,4 +20,6 @@ public partial class UserInformation
     public bool? IsActive { get; set; }
 
     public DateTime? RegistrationDate { get; set; }
+
+    public virtual ICollection<RefreshTokenHistory> RefreshTokenHistories { get; } = new List<RefreshTokenHistory>();
 }
