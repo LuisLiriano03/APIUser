@@ -22,4 +22,7 @@ CreationDate datetime,
 ExpirationDate datetime,
 IsActive AS (iif(ExpirationDate < getdate(), convert(bit,0), convert(bit,1)))
 )
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28640d518775b1f01f81688b2f414ef481ff87be
