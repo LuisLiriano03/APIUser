@@ -19,7 +19,7 @@ namespace User.DAL.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<TModel> Get(Expression<Func<TModel, bool>> filter)
+        public async Task<TModel> GetDataDetails(Expression<Func<TModel, bool>> filter)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace User.DAL.Repository
         }
 
 
-        public async Task<TModel> Create(TModel model)
+        public async Task<TModel> CreateData(TModel model)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace User.DAL.Repository
             }
         }
 
-        public async Task<bool> Edit(TModel model)
+        public async Task<bool> UpdateData(TModel model)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace User.DAL.Repository
                 throw;
             }
         }
-        public async Task<bool> Delete(TModel model)
+        public async Task<bool> RemoveData(TModel model)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace User.DAL.Repository
                 throw;
             }
         }
-        public async Task<IQueryable<TModel>> Consult(Expression<Func<TModel, bool>> filter = null)
+        public async Task<IQueryable<TModel>> ValidateDataExistence(Expression<Func<TModel, bool>> filter = null)
         {
             try
             {

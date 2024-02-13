@@ -27,6 +27,7 @@ namespace User.Utility
 
             CreateMap<UserInformation, TokenAuthorizationRequestDTO>().ReverseMap();
             CreateMap<UserInformation, TokenAuthorizationResponseDTO>().ReverseMap();
+            CreateMap<UserInformation, RefreshTokenHistory>().ReverseMap();
 
         }
 

@@ -6,4 +6,5 @@
         public T value { get; set; }
         public string mensage { get; set; }
     }
+
 }

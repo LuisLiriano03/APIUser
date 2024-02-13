@@ -23,4 +23,5 @@ namespace User.DTOs
         public int? IsActive { get; set; }
 
     }
+
 }

@@ -9,9 +9,9 @@ namespace User.BLL.Services.Contracts
 {
     public interface IUserService
     {
-        Task<List<UserInformationDTO>> List();
-        Task<UserInformationDTO> Create(UserInformationDTO model);
-        Task<bool> Edit(UserInformationDTO model);
-        Task<bool> Delete(int id);
+        Task<List<UserInformationDTO>> AllUsersList();
+        Task<UserInformationDTO> CreateUser(UserInformationDTO model);
+        Task<bool> ModifyUser(UserInformationDTO model);
+        Task<bool> EliminateUser(int id);
     }
 }

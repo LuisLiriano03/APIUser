@@ -11,6 +11,6 @@ namespace User.DTOs
         public string ExpirationToken { get; set; }
         public string RefreshToken { get; set; }
 
-
     }
+
 }

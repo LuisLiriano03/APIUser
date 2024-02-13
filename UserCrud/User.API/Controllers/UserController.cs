@@ -15,67 +15,25 @@ namespace User.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IAutorizacionService _autorizacionService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public UserController(IUserService userService, IAutorizacionService autorizacionService)
+        public UserController(IUserService userService, IAuthenticationService authenticationService)
         {
             _userService = userService;
-            _autorizacionService = autorizacionService;
-        }
-
-        [HttpPost]
-        [Route("Authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] TokenAuthorizationRequestDTO requestDTO)
-        {
-            var AuthorizedResult = await _autorizacionService.ReturnToken(requestDTO);
-            if(AuthorizedResult == null)
-            {
-                return Unauthorized();
-            }
-
-            return Ok(AuthorizedResult);
-        }
-
-        [HttpPost]
-        [Route("GetRefreshToken")]
-        public async Task<IActionResult> GetRefreshToken([FromBody] RefreshTokenRequestDTO requestDTO)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var TokenSupposedlyExpired = tokenHandler.ReadJwtToken(requestDTO.ExpirationToken);
-
-            if(TokenSupposedlyExpired.ValidTo > DateTime.UtcNow)
-            {
-                return BadRequest(new TokenAuthorizationResponseDTO
-                {
-                    Resul = false,
-                    Message = "Refreshtoken does not expired"
-                });
-
-            }
-
-            string userId = TokenSupposedlyExpired.Claims.First( x=>
-                x.Type == JwtRegisteredClaimNames.NameId).Value.ToString();
-
-            var AuthorizationResponse = await _autorizacionService.ReturnRefreshToken(requestDTO, int.Parse(userId));
-
-            if (AuthorizationResponse.Resul)
-                return Ok(AuthorizationResponse);
-            else
-                return BadRequest(AuthorizationResponse);
-
+            _authenticationService = authenticationService;
         }
 
         [Authorize]
         [HttpGet]
-        [Route("List")]
-        public async Task<IActionResult> List()
+        [Route("AllUsers")]
+        public async Task<IActionResult> GetAllUsers()
         {
             var response = new Response<List<UserInformationDTO>>();
 
             try
             {
                 response.status = true;
-                response.value = await _userService.List();
+                response.value = await _userService.AllUsersList();
             }
             catch (Exception ex)
             {
@@ -88,15 +46,15 @@ namespace User.API.Controllers
         }
 
         [HttpPost]
-        [Route("DataSave")]
-        public async Task<IActionResult> DataSave([FromBody] UserInformationDTO user)
+        [Route("SaveUser")]
+        public async Task<IActionResult> SaveUser([FromBody] UserInformationDTO user)
         {
             var response = new Response<UserInformationDTO>();
 
             try
             {
                 response.status = true;
-                response.value = await _userService.Create(user);
+                response.value = await _userService.CreateUser(user);
             }
             catch (Exception ex)
             {
@@ -109,15 +67,15 @@ namespace User.API.Controllers
         }
 
         [HttpPut]
-        [Route("Edit")]
-        public async Task<IActionResult> Edit([FromBody] UserInformationDTO user)
+        [Route("UpdateUser")]
+        public async Task<IActionResult> UpdateUser([FromBody] UserInformationDTO user)
         {
             var response = new Response<bool>();
 
             try
             {
                 response.status = true;
-                response.value = await _userService.Edit(user);
+                response.value = await _userService.ModifyUser(user);
             }
             catch (Exception ex)
             {
@@ -130,15 +88,15 @@ namespace User.API.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete/{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("DeleteUser/{id:int}")]
+        public async Task<IActionResult> DeleteUser(int id)
         {
             var response = new Response<bool>();
 
             try
             {
                 response.status = true;
-                response.value = await _userService.Delete(id);
+                response.value = await _userService.EliminateUser(id);
             }
             catch (Exception ex)
             {
@@ -149,5 +107,7 @@ namespace User.API.Controllers
             return Ok(response);
 
         }
+
     }
+
 }

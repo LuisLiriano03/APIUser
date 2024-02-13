@@ -17,7 +17,6 @@ namespace User.IOC
 {
     public static class Dependency
     {
-
         public static void DependencyInjections(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<UserDbContext>(options =>
@@ -30,11 +29,10 @@ namespace User.IOC
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAutorizacionService, AutorizacionService>();
-
-            
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
         }
 
     }
+
 }

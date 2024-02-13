@@ -14,4 +14,5 @@ namespace User.DTOs
         public string Message { get; set; }
 
     }
+
 }

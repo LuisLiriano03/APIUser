@@ -15,13 +15,13 @@ using User.Model;
 
 namespace User.BLL.Services
 {
-    public class AutorizacionService : IAutorizacionService
+    public class AuthenticationService : IAuthenticationService
     {
 
         private readonly UserDbContext _dbcontext;
         private readonly IConfiguration _configuration;
 
-        public AutorizacionService(UserDbContext dbcontext, IConfiguration configuration)
+        public AuthenticationService(UserDbContext dbcontext, IConfiguration configuration)
         {
             _dbcontext = dbcontext;
             _configuration = configuration;

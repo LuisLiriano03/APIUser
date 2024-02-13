@@ -21,11 +21,11 @@ namespace User.BLL.Services
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public async Task<List<UserInformationDTO>> List()
+        public async Task<List<UserInformationDTO>> AllUsersList()
         {
             try
             {
-                var UserQuery = await _userRepository.Consult();
+                var UserQuery = await _userRepository.ValidateDataExistence();
                 return _mapper.Map<List<UserInformationDTO>>(UserQuery.ToList());
             }
             catch
@@ -35,16 +35,16 @@ namespace User.BLL.Services
 
         }
 
-        public async Task<UserInformationDTO> Create(UserInformationDTO model)
+        public async Task<UserInformationDTO> CreateUser(UserInformationDTO model)
         {
             try
             {
-                var userCreated = await _userRepository.Create(_mapper.Map<UserInformation>(model));
+                var userCreated = await _userRepository.CreateData(_mapper.Map<UserInformation>(model));
 
                 if (userCreated.UserId == 0)
                     throw new TaskCanceledException("Could not be created");
 
-                var query = await _userRepository.Consult(u => u.UserId == userCreated.UserId);
+                var query = await _userRepository.ValidateDataExistence(u => u.UserId == userCreated.UserId);
 
                 return _mapper.Map<UserInformationDTO>(userCreated);
 
@@ -55,12 +55,12 @@ namespace User.BLL.Services
             }
         }
 
-        public async Task<bool> Edit(UserInformationDTO model)
+        public async Task<bool> ModifyUser(UserInformationDTO model)
         {
             try
             {
                 var UserModel = _mapper.Map<UserInformation>(model);
-                var userFound = await _userRepository.Get(u => u.UserId == UserModel.UserId);
+                var userFound = await _userRepository.GetDataDetails(u => u.UserId == UserModel.UserId);
 
                 if (userFound == null)
                     throw new TaskCanceledException("The user does not exist.");
@@ -73,7 +73,7 @@ namespace User.BLL.Services
                 userFound.UserPassword = UserModel.UserPassword;
                 userFound.IsActive = UserModel.IsActive;
 
-                bool response = await _userRepository.Edit(userFound);
+                bool response = await _userRepository.UpdateData(userFound);
 
                 if (!response)
                     throw new TaskCanceledException("Could not edit");
@@ -87,16 +87,16 @@ namespace User.BLL.Services
             }
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> EliminateUser(int id)
         {
             try
             {
-                var userFound = await _userRepository.Get(u => u.UserId == id);
+                var userFound = await _userRepository.GetDataDetails(u => u.UserId == id);
 
                 if (userFound == null)
                     throw new TaskCanceledException("The user does not exist.");
 
-                bool response = await _userRepository.Delete(userFound);
+                bool response = await _userRepository.RemoveData(userFound);
 
                 if (!response)
                     throw new TaskCanceledException("Could not delete");
