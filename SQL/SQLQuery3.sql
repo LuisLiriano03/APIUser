@@ -3,8 +3,3 @@ insert into UserInformation(FirstName,LastName,Age,Email,UserPassword)
 values('Luis','Liriano',21,'llirianomendez@gmail.com','1234567')
 
 select * from UserInformation
-
-insert into TokenExpiration(CreationDate,ExpirationDate)
-values(
-getdate(), 
-dateadd(second,10,getdate()))
